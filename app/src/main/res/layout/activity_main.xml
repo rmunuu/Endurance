@@ -1,0 +1,45 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/increase_snow_days"/>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/set_last_snow_date"
+        android:layout_below="@id/button1"/>
+
+    <TextView
+        android:id="@+id/timeSinceLastSnow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/time_since_last_snow"
+        android:background="@drawable/textview_box"
+        android:padding="10dp"
+        android:layout_below="@id/button2"/>
+
+    <TextView
+        android:id="@+id/averageSnowCycle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/average_snow_cycle"
+        android:background="@drawable/textview_box"
+        android:padding="10dp"
+        android:layout_below="@id/timeSinceLastSnow"/>
+
+    <TextView
+        android:id="@+id/lastSnowDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/last_snow_date"
+        android:background="@drawable/textview_box"
+        android:padding="10dp"
+        android:layout_below="@id/averageSnowCycle"/>
+
+</RelativeLayout>
