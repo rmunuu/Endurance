@@ -10,7 +10,8 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
-    <string name="increase_snow_days">Increase Snow Days</string>
+    <string name="edit_snow_days">Edit Snow Days</string>
+    <string name="set_start_date">Set Start Date</string>
     <string name="set_last_snow_date">Set Last Snow Date</string>
     <string name="time_since_last_snow">Time since last snow</string>
     <string name="average_snow_cycle">Average Snow Cycle</string>

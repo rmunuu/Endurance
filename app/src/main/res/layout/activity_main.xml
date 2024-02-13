@@ -6,14 +6,21 @@
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/increase_snow_days"/>
+        android:text="@string/edit_snow_days"/>
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/set_last_snow_date"
+        android:text="@string/set_start_date"
         android:layout_below="@id/button1"/>
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/set_last_snow_date"
+        android:layout_below="@id/button2"/>
 
     <TextView
         android:id="@+id/timeSinceLastSnow"
@@ -22,7 +29,7 @@
         android:text="@string/time_since_last_snow"
         android:background="@drawable/textview_box"
         android:padding="10dp"
-        android:layout_below="@id/button2"/>
+        android:layout_below="@id/button3"/>
 
     <TextView
         android:id="@+id/averageSnowCycle"

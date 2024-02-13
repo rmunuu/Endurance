@@ -22,10 +22,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
 
     private int value1 = 0;
-    private int value2 = 0;
+    private String start_date = "";
+    private String last_date = "";
     private SharedPreferences sharedPref;
 
     private TextView timeSinceLastSnowTextView;
@@ -56,14 +61,41 @@ public class MainActivity extends AppCompatActivity {
             }
         });*/
 
+
+        // 시작 날짜, 마지막 눈 날짜, 현재 날짜
+        //LocalDate start_date = LocalDate.of(LocalDate.now().getYear(), 1, 1);
+        //LocalDate last_date = DateUtils.parseDate(value2);
+        //LocalDate today = LocalDate.now();
+
+
+        //String startDateString = start_date.toString(); // 기록 시작일
+        //String todayDateString = today.toString(); // 오늘 날짜
+        // value 2가 마지막으로 눈온 날짜
+
         sharedPref = getSharedPreferences("MyApp", MODE_PRIVATE);
         value1 = sharedPref.getInt("value1", 0);
-        value2 = sharedPref.getInt("value2", 0);
+        //value2 = sharedPref.getString("value2", "");
+
+        timeSinceLastSnowTextView = findViewById(R.id.timeSinceLastSnow);
+        averageSnowCycleTextView = findViewById(R.id.averageSnowCycle);
+        lastSnowDateTextView = findViewById(R.id.lastSnowDate);
+
+        start_date = sharedPref.getString("start_date", "20240101");
+        last_date = sharedPref.getString("last_date", "20240201");
 
 
-        timeSinceLastSnowTextView = findViewById(R.id.timeSinceLastSnow); // replace with actual ID
-        averageSnowCycleTextView = findViewById(R.id.averageSnowCycle); // replace with actual ID
-        lastSnowDateTextView = findViewById(R.id.lastSnowDate); // replace with actual ID
+
+        /*
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        editor.putString("start", startDateString);
+        //editor.putString("now", todayDateString);
+        editor.apply();
+
+         */
+
+
+
 
 
         /*
@@ -79,6 +111,8 @@ public class MainActivity extends AppCompatActivity {
 
         Button button1 = findViewById(R.id.button1);
         Button button2 = findViewById(R.id.button2);
+        Button button3 = findViewById(R.id.button3);
+
 
         /*
         button1.setOnClickListener(new View.OnClickListener() {
@@ -102,6 +136,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showDataInputDialog2();
+            }
+        });
+
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDataInputDialog3();
             }
         });
 
@@ -130,12 +171,31 @@ public class MainActivity extends AppCompatActivity {
     private void showDataInputDialog2() {
         final EditText dateInput = new EditText(this);
         new AlertDialog.Builder(this)
-                .setTitle("Enter Last Snow Date")
+                .setTitle("Enter Start Date\ncurrently set to: "+start_date)
                 .setView(dateInput)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         try {
-                            value2 = Integer.parseInt(dateInput.getText().toString());
+                            start_date = dateInput.getText().toString();
+                            saveData();
+                            updateUI();
+                        } catch (NumberFormatException e) {
+                            // Handle wrong input
+                        }
+                    }
+                })
+                .setNegativeButton("Cancel", null).show();
+    }
+
+    private void showDataInputDialog3() {
+        final EditText dateInput = new EditText(this);
+        new AlertDialog.Builder(this)
+                .setTitle("Enter Last Snow Date\ncurrently set to: "+last_date)
+                .setView(dateInput)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        try {
+                            last_date = dateInput.getText().toString();
                             saveData();
                             updateUI();
                         } catch (NumberFormatException e) {
@@ -149,19 +209,29 @@ public class MainActivity extends AppCompatActivity {
     private void updateUI() {
         TextView timeSinceLastSnowTextView = findViewById(R.id.timeSinceLastSnow); // replace with your actual TextView ID
         // ... update TextViews based on value1 and value2 ...
-        timeSinceLastSnowTextView.setText("Time since last snow: " + value1);
 
-        float calculatedAverageCycle = (float)30/(value1);
+        LocalDate today = LocalDate.now();
+        LocalDate start_date_real = DateUtils.parseDate(start_date);
+        LocalDate last_date_real = DateUtils.parseDate(last_date);
 
+        long daysSinceStartDate = ChronoUnit.DAYS.between(start_date_real, today);
+        long daysSinceLastSnow = ChronoUnit.DAYS.between(last_date_real, today);
+        daysSinceLastSnow ++;
+
+        //float calculatedAverageCycle = (float)daysSinceStartDate/(value1);
+        float calculatedAverageCycle = (float)daysSinceStartDate/(value1);
+
+        timeSinceLastSnowTextView.setText("Time since last snow: " + daysSinceLastSnow);
         averageSnowCycleTextView.setText("Average Snow Cycle: " + calculatedAverageCycle);
-        lastSnowDateTextView.setText("Last Snow Date: " + value2);
+        lastSnowDateTextView.setText("Last Snow Date: " + last_date);
     }
 
     // Method to save data in SharedPreferences
     private void saveData() {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt("value1", value1);
-        editor.putInt("value2", value2);
+        editor.putString("start_date", start_date);
+        editor.putString("last_date", last_date);
         editor.apply();
     }
 
