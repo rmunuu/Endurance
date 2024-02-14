@@ -4,7 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/User/AndroidStudioProjects/Endurance/app/src/main/res/drawable-v24/textview_box.xml" value="0.265" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Endurance/app/src/main/res/layout/activity_main.xml" value="0.27395833333333336" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Endurance/app/src/main/res/drawable/ic_launcher_background.xml" value="0.139" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Endurance/app/src/main/res/drawable/settings_img_adjusted.xml" value="0.139" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Endurance/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Endurance/app/src/main/res/layout/activity_settings.xml" value="0.264" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Endurance/app/src/main/res/layout/content_main.xml" value="0.264" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Endurance/app/src/main/res/layout/fragment_first.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Endurance/app/src/main/res/layout/fragment_second.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Endurence/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Endurence/app/src/main/res/layout/string.xml" value="0.12604166666666666" />
       </map>

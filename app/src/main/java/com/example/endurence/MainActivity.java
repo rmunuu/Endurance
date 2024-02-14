@@ -1,5 +1,6 @@
 package com.example.endurence;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.time.LocalDate;
@@ -39,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+
+    private ImageButton settingsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         // value 2가 마지막으로 눈온 날짜
 
         sharedPref = getSharedPreferences("MyApp", MODE_PRIVATE);
-        value1 = sharedPref.getInt("value1", 0);
+        value1 = sharedPref.getInt("value1", 1);
         //value2 = sharedPref.getString("value2", "");
 
         timeSinceLastSnowTextView = findViewById(R.id.timeSinceLastSnow);
@@ -107,104 +111,18 @@ public class MainActivity extends AppCompatActivity {
         lastSnowDateTextView.setText("Last Snow Date: " + value2);
         */
 
-
-
-        Button button1 = findViewById(R.id.button1);
-        Button button2 = findViewById(R.id.button2);
-        Button button3 = findViewById(R.id.button3);
-
-
-        /*
-        button1.setOnClickListener(new View.OnClickListener() {
+        settingsButton = (ImageButton) findViewById(R.id.settingsButton); // Replace with your button ID
+        settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                value1++;
-                saveData();
-                updateUI();
-            }
-        });
-         */
-
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDataInputDialog1();
-            }
-        });
-
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDataInputDialog2();
-            }
-        });
-
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDataInputDialog3();
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intent);
             }
         });
 
         updateUI();
     }
 
-    private void showDataInputDialog1() {
-        final EditText dateInput = new EditText(this);
-        new AlertDialog.Builder(this)
-                .setTitle("Enter Snow Days\nprevious: "+value1)
-                .setView(dateInput)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        try {
-                            value1 = Integer.parseInt(dateInput.getText().toString());
-                            saveData();
-                            updateUI();
-                        } catch (NumberFormatException e) {
-                            // Handle wrong input
-                        }
-                    }
-                })
-                .setNegativeButton("Cancel", null).show();
-    }
-
-    private void showDataInputDialog2() {
-        final EditText dateInput = new EditText(this);
-        new AlertDialog.Builder(this)
-                .setTitle("Enter Start Date\ncurrently set to: "+start_date)
-                .setView(dateInput)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        try {
-                            start_date = dateInput.getText().toString();
-                            saveData();
-                            updateUI();
-                        } catch (NumberFormatException e) {
-                            // Handle wrong input
-                        }
-                    }
-                })
-                .setNegativeButton("Cancel", null).show();
-    }
-
-    private void showDataInputDialog3() {
-        final EditText dateInput = new EditText(this);
-        new AlertDialog.Builder(this)
-                .setTitle("Enter Last Snow Date\ncurrently set to: "+last_date)
-                .setView(dateInput)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        try {
-                            last_date = dateInput.getText().toString();
-                            saveData();
-                            updateUI();
-                        } catch (NumberFormatException e) {
-                            // Handle wrong input
-                        }
-                    }
-                })
-                .setNegativeButton("Cancel", null).show();
-    }
 
     private void updateUI() {
         TextView timeSinceLastSnowTextView = findViewById(R.id.timeSinceLastSnow); // replace with your actual TextView ID
@@ -216,17 +134,24 @@ public class MainActivity extends AppCompatActivity {
 
         long daysSinceStartDate = ChronoUnit.DAYS.between(start_date_real, today);
         long daysSinceLastSnow = ChronoUnit.DAYS.between(last_date_real, today);
-        daysSinceLastSnow ++;
+        //daysSinceLastSnow ++;
 
         //float calculatedAverageCycle = (float)daysSinceStartDate/(value1);
         float calculatedAverageCycle = (float)daysSinceStartDate/(value1);
 
         timeSinceLastSnowTextView.setText("Time since last snow: " + daysSinceLastSnow);
         averageSnowCycleTextView.setText("Average Snow Cycle: " + calculatedAverageCycle);
-        lastSnowDateTextView.setText("Last Snow Date: " + last_date);
+        lastSnowDateTextView.setText("Last Snow Date: " + formatDate(last_date));
     }
 
-    // Method to save data in SharedPreferences
+    public String formatDate(String inputDate) {
+        if (inputDate != null && inputDate.length() == 8) {
+            return inputDate.substring(0, 4) + "-" + inputDate.substring(4, 6) + "-" + inputDate.substring(6, 8);
+        }
+        return inputDate; // Return original string if it's not in the expected format
+    }
+
+    /*
     private void saveData() {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt("value1", value1);
@@ -234,6 +159,8 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("last_date", last_date);
         editor.apply();
     }
+
+     */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
