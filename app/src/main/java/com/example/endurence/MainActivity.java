@@ -1,5 +1,6 @@
 package com.example.endurence;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -77,16 +78,14 @@ public class MainActivity extends AppCompatActivity {
         // value 2가 마지막으로 눈온 날짜
 
         sharedPref = getSharedPreferences("MyApp", MODE_PRIVATE);
+
         value1 = sharedPref.getInt("value1", 1);
-        //value2 = sharedPref.getString("value2", "");
+        start_date = sharedPref.getString("start_date", "20240101");
+        last_date = sharedPref.getString("last_date", "20240201");
 
         timeSinceLastSnowTextView = findViewById(R.id.timeSinceLastSnow);
         averageSnowCycleTextView = findViewById(R.id.averageSnowCycle);
         lastSnowDateTextView = findViewById(R.id.lastSnowDate);
-
-        start_date = sharedPref.getString("start_date", "20240101");
-        last_date = sharedPref.getString("last_date", "20240201");
-
 
 
         /*
@@ -97,9 +96,6 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
 
          */
-
-
-
 
 
         /*
@@ -125,8 +121,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void updateUI() {
-        TextView timeSinceLastSnowTextView = findViewById(R.id.timeSinceLastSnow); // replace with your actual TextView ID
-        // ... update TextViews based on value1 and value2 ...
+
+        sharedPref = getSharedPreferences("MyApp", MODE_PRIVATE);
+
+        value1 = sharedPref.getInt("value1", 1);
+        start_date = sharedPref.getString("start_date", "20240101");
+        last_date = sharedPref.getString("last_date", "20240201");
 
         LocalDate today = LocalDate.now();
         LocalDate start_date_real = DateUtils.parseDate(start_date);
@@ -134,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
 
         long daysSinceStartDate = ChronoUnit.DAYS.between(start_date_real, today);
         long daysSinceLastSnow = ChronoUnit.DAYS.between(last_date_real, today);
-        //daysSinceLastSnow ++;
 
         //float calculatedAverageCycle = (float)daysSinceStartDate/(value1);
         float calculatedAverageCycle = (float)daysSinceStartDate/(value1);
@@ -189,5 +188,11 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateUI();
     }
 }

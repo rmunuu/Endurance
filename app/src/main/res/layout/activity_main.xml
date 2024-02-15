@@ -72,12 +72,24 @@
         android:id="@+id/lastSnowDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/averageSnowCycle"
         android:layout_marginTop="5dp"
-        android:text="@string/last_snow_date"
-        android:textSize="20sp"
-        android:textStyle="bold"
         android:background="@drawable/textview_box"
         android:padding="20dp"
-        android:layout_below="@id/averageSnowCycle"/>
+        android:text="@string/last_snow_date"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <CalendarView
+        android:id="@+id/calendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lastSnowDate"
+        android:layout_marginTop="5dp"
+        android:background="@color/white"/>
+
+
+
+
 
 </RelativeLayout>

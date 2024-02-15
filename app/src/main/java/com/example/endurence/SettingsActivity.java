@@ -1,7 +1,9 @@
 package com.example.endurence;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -38,7 +40,6 @@ public class SettingsActivity extends AppCompatActivity {
         sharedPref = getSharedPreferences("MyApp", MODE_PRIVATE);
 
         value1 = sharedPref.getInt("value1", 1);
-
         start_date = sharedPref.getString("start_date", "20240101");
         last_date = sharedPref.getString("last_date", "20240201");
 
@@ -184,9 +185,4 @@ public class SettingsActivity extends AppCompatActivity {
         editor.putString("last_date", last_date);
         editor.apply();
     }
-
-
-
-
-
 }
