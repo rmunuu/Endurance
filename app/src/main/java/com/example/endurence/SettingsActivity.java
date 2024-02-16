@@ -139,7 +139,7 @@ public class SettingsActivity extends AppCompatActivity {
         Button button3 = findViewById(R.id.button3);
 
         // Custom String 1
-        SpannableString styledText1 = createStyledText("Snow Days\n", String.valueOf(value1), 1.4f, 1.4f, 255, 128);
+        SpannableString styledText1 = createStyledText("Nut Days\n", String.valueOf(value1), 1.4f, 1.4f, 255, 128);
         button1.setText(styledText1);
         button1.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
 
@@ -147,7 +147,7 @@ public class SettingsActivity extends AppCompatActivity {
         button2.setText(styledText2);
         button2.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
 
-        SpannableString styledText3 = createStyledText("Last Snow Date\n", String.valueOf(formatDate(last_date)), 1.4f, 1.4f, 255, 128);
+        SpannableString styledText3 = createStyledText("Last Nut Date\n", String.valueOf(formatDate(last_date)), 1.4f, 1.4f, 255, 128);
         button3.setText(styledText3);
         button3.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
 

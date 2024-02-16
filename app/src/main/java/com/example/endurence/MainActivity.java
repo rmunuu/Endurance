@@ -138,9 +138,9 @@ public class MainActivity extends AppCompatActivity {
         //float calculatedAverageCycle = (float)daysSinceStartDate/(value1);
         float calculatedAverageCycle = (float)daysSinceStartDate/(value1);
 
-        timeSinceLastSnowTextView.setText("Time since last snow: " + daysSinceLastSnow);
-        averageSnowCycleTextView.setText("Average Snow Cycle: " + calculatedAverageCycle);
-        lastSnowDateTextView.setText("Last Snow Date: " + formatDate(last_date));
+        timeSinceLastSnowTextView.setText("Days Since Last Nut: " + daysSinceLastSnow);
+        averageSnowCycleTextView.setText("Average Nut Cycle: " + calculatedAverageCycle);
+        lastSnowDateTextView.setText("Last Nut Date: " + formatDate(last_date));
     }
 
     public String formatDate(String inputDate) {
