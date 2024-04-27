@@ -35,6 +35,13 @@
         android:text="@string/set_last_snow_date"
         android:layout_below="@id/button2"/>
 
+    <Button
+        android:id="@+id/button_init_max_streak"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/init_max_streak"
+        android:layout_below="@id/button3"/>
+
 
 
 </RelativeLayout>

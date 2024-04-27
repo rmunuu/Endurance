@@ -23,6 +23,7 @@ import android.content.SharedPreferences;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.time.LocalDate;
@@ -34,12 +35,15 @@ public class MainActivity extends AppCompatActivity {
     private int value1 = 0;
     private String start_date = "";
     private String last_date = "";
+    private int max_streak = 0;
     private SharedPreferences sharedPref;
 
     private TextView timeSinceLastSnowTextView;
     private TextView averageSnowCycleTextView;
     private TextView lastSnowDateTextView;
     private TextView warningTextView;
+    private TextView progressTextView;
+    private ProgressBar progressBar;
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
@@ -58,11 +62,18 @@ public class MainActivity extends AppCompatActivity {
         value1 = sharedPref.getInt("value1", 1);
         start_date = sharedPref.getString("start_date", "20240101");
         last_date = sharedPref.getString("last_date", "20240201");
+        max_streak = sharedPref.getInt("max_streak", 0);
 
         timeSinceLastSnowTextView = findViewById(R.id.daySinceLastSnow);
         averageSnowCycleTextView = findViewById(R.id.averageSnowCycle);
         lastSnowDateTextView = findViewById(R.id.lastSnowDate);
         warningTextView = findViewById(R.id.warning);
+        progressTextView = findViewById(R.id.progressText);
+        progressBar = findViewById(R.id.progressBar);
+
+        progressBar.setMax(100);
+
+//        binding.progressBar.setVisibility(View.VISIBLE);
 
 
 
@@ -81,11 +92,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateUI() {
 
+        boolean flag_master = false;
+
         sharedPref = getSharedPreferences("MyApp", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
 
         value1 = sharedPref.getInt("value1", 1); //Nut Days
         start_date = sharedPref.getString("start_date", "20240101");
         last_date = sharedPref.getString("last_date", "20240201");
+        max_streak = sharedPref.getInt("max_streak", 0);
+
 
         LocalDate today = LocalDate.now();
         LocalDate start_date_real = DateUtils.parseDate(start_date);
@@ -98,10 +114,27 @@ public class MainActivity extends AppCompatActivity {
         float calculatedAverageCycle = (float)daysSinceStartDate/(value1);
         float futureAverageCycle = (float)daysSinceStartDate/(value1+1.0f);
 
+        if (max_streak < daysSinceLastSnow) {
+            max_streak = (int)daysSinceLastSnow;
+            editor.putInt("max_streak", max_streak);
+            editor.apply();
+        }
+
+        if (max_streak >= 100) {
+            progressBar.setProgress(100);
+            flag_master = true;
+        } else {
+            progressBar.setProgress((int)daysSinceLastSnow);
+        }
+
+        String progress_string;
+        progress_string = flag_master?"You are a Master " + "(max " + max_streak + " streak)":getString(R.string.progress_text) + " (" + daysSinceLastSnow + "/" + 100 + " days)";
+
         timeSinceLastSnowTextView.setText(getString(R.string.day_since_last_snow) + ": " + daysSinceLastSnow);
         averageSnowCycleTextView.setText(getString(R.string.average_snow_cycle) + ": " + calculatedAverageCycle);
         lastSnowDateTextView.setText(getString(R.string.last_snow_date) + ": " + formatDate(last_date));
         warningTextView.setText(getString(R.string.warning) + "\nAverage Nut Cycle: " + futureAverageCycle);
+        progressTextView.setText(progress_string);
     }
 
     public String formatDate(String inputDate) {

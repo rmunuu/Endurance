@@ -26,6 +26,7 @@ public class SettingsActivity extends AppCompatActivity {
     private int value1 = 0;
     private String start_date = "";
     private String last_date = "";
+    private int max_streak = 0;
     private SharedPreferences sharedPref;
 
     @Override
@@ -42,10 +43,12 @@ public class SettingsActivity extends AppCompatActivity {
         value1 = sharedPref.getInt("value1", 1);
         start_date = sharedPref.getString("start_date", "20240101");
         last_date = sharedPref.getString("last_date", "20240201");
+        max_streak = sharedPref.getInt("max_streak", 0);
 
         Button button1 = findViewById(R.id.button1);
         Button button2 = findViewById(R.id.button2);
         Button button3 = findViewById(R.id.button3);
+        Button button4 = findViewById(R.id.button_init_max_streak);
 
         //button1.setText()
 
@@ -67,6 +70,14 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showDataInputDialog3();
+            }
+        });
+
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                max_streak = 0;
+                saveData();
             }
         });
 
@@ -183,6 +194,7 @@ public class SettingsActivity extends AppCompatActivity {
         editor.putInt("value1", value1);
         editor.putString("start_date", start_date);
         editor.putString("last_date", last_date);
+        editor.putInt("max_streak", max_streak);
         editor.apply();
     }
 }

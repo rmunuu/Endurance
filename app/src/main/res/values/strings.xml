@@ -17,6 +17,8 @@
     <string name="average_snow_cycle">Average Nut Cycle</string>
     <string name="last_snow_date">Last Nut Date</string>
     <string name="warning">If You Jerk Now</string>
+    <string name="progress_text">Way to the master</string>
+    <string name="init_max_streak">Init Max Streak</string>
 
 
 </resources>
