@@ -13,9 +13,10 @@
     <string name="snow_days">Nut Days</string>
     <string name="set_start_date">Set Start Date</string>
     <string name="set_last_snow_date">Set Last Nut Date</string>
-    <string name="time_since_last_snow">Time Since Last Nut</string>
+    <string name="day_since_last_snow">Days Since Last Nut</string>
     <string name="average_snow_cycle">Average Nut Cycle</string>
     <string name="last_snow_date">Last Nut Date</string>
+    <string name="warning">If You Jerk Now</string>
 
 
 </resources>

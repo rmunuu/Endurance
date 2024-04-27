@@ -3,15 +3,6 @@
     android:layout_height="match_parent"
     android:background="#292929">
 
-
-<!--    <Button-->
-<!--        android:id="@+id/settingButton"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentTop="true"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:background="@drawable/settings_img"/>-->
-
     <LinearLayout
         android:id="@+id/topLinearLayout"
         android:layout_width="match_parent"
@@ -33,23 +24,12 @@
             android:src="@drawable/settings_img" />
     </LinearLayout>
 
-<!--    <ImageButton-->
-<!--        android:id="@+id/settingsButton"-->
-<!--        android:layout_width="50dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:layout_alignParentTop="true"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:onClick="onImageButtonClick"-->
-<!--        android:scaleType="fitCenter"-->
-<!--        android:src="@drawable/settings_img" />-->
-
-
     <TextView
-        android:id="@+id/timeSinceLastSnow"
+        android:id="@+id/daySinceLastSnow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
-        android:text="@string/time_since_last_snow"
+        android:text="@string/day_since_last_snow"
         android:textSize="20sp"
         android:textStyle="bold"
         android:background="@drawable/textview_box"
@@ -66,7 +46,7 @@
         android:textStyle="bold"
         android:background="@drawable/textview_box"
         android:padding="20dp"
-        android:layout_below="@id/timeSinceLastSnow"/>
+        android:layout_below="@id/daySinceLastSnow"/>
 
     <TextView
         android:id="@+id/lastSnowDate"
@@ -80,16 +60,25 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <CalendarView
-        android:id="@+id/calendar"
+    <TextView
+        android:id="@+id/warning"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/lastSnowDate"
         android:layout_marginTop="5dp"
-        android:background="@color/white"/>
+        android:background="@drawable/textview_box2"
+        android:padding="20dp"
+        android:text="@string/warning"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#0000FF" />
 
-
-
-
+<!--    <CalendarView-->
+<!--        android:id="@+id/calendar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/lastSnowDate"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:background="@color/white"/>-->
 
 </RelativeLayout>

@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView timeSinceLastSnowTextView;
     private TextView averageSnowCycleTextView;
     private TextView lastSnowDateTextView;
+    private TextView warningTextView;
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
@@ -52,60 +53,18 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        /*setSupportActionBar(binding.toolbar);
-
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-
-
-        // 시작 날짜, 마지막 눈 날짜, 현재 날짜
-        //LocalDate start_date = LocalDate.of(LocalDate.now().getYear(), 1, 1);
-        //LocalDate last_date = DateUtils.parseDate(value2);
-        //LocalDate today = LocalDate.now();
-
-
-        //String startDateString = start_date.toString(); // 기록 시작일
-        //String todayDateString = today.toString(); // 오늘 날짜
-        // value 2가 마지막으로 눈온 날짜
-
         sharedPref = getSharedPreferences("MyApp", MODE_PRIVATE);
 
         value1 = sharedPref.getInt("value1", 1);
         start_date = sharedPref.getString("start_date", "20240101");
         last_date = sharedPref.getString("last_date", "20240201");
 
-        timeSinceLastSnowTextView = findViewById(R.id.timeSinceLastSnow);
+        timeSinceLastSnowTextView = findViewById(R.id.daySinceLastSnow);
         averageSnowCycleTextView = findViewById(R.id.averageSnowCycle);
         lastSnowDateTextView = findViewById(R.id.lastSnowDate);
+        warningTextView = findViewById(R.id.warning);
 
 
-        /*
-        SharedPreferences.Editor editor = sharedPref.edit();
-
-        editor.putString("start", startDateString);
-        //editor.putString("now", todayDateString);
-        editor.apply();
-
-         */
-
-
-        /*
-        float calculatedAverageCycle = (float)30/(value1);
-
-        // Example of setting the text for the TextViews
-        timeSinceLastSnowTextView.setText("Time since last snow: " + value1);
-        averageSnowCycleTextView.setText("Average Snow Cycle: " + calculatedAverageCycle);
-        lastSnowDateTextView.setText("Last Snow Date: " + value2);
-        */
 
         settingsButton = (ImageButton) findViewById(R.id.settingsButton); // Replace with your button ID
         settingsButton.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
         sharedPref = getSharedPreferences("MyApp", MODE_PRIVATE);
 
-        value1 = sharedPref.getInt("value1", 1);
+        value1 = sharedPref.getInt("value1", 1); //Nut Days
         start_date = sharedPref.getString("start_date", "20240101");
         last_date = sharedPref.getString("last_date", "20240201");
 
@@ -137,10 +96,12 @@ public class MainActivity extends AppCompatActivity {
 
         //float calculatedAverageCycle = (float)daysSinceStartDate/(value1);
         float calculatedAverageCycle = (float)daysSinceStartDate/(value1);
+        float futureAverageCycle = (float)daysSinceStartDate/(value1+1.0f);
 
-        timeSinceLastSnowTextView.setText("Days Since Last Nut: " + daysSinceLastSnow);
-        averageSnowCycleTextView.setText("Average Nut Cycle: " + calculatedAverageCycle);
-        lastSnowDateTextView.setText("Last Nut Date: " + formatDate(last_date));
+        timeSinceLastSnowTextView.setText(getString(R.string.day_since_last_snow) + ": " + daysSinceLastSnow);
+        averageSnowCycleTextView.setText(getString(R.string.average_snow_cycle) + ": " + calculatedAverageCycle);
+        lastSnowDateTextView.setText(getString(R.string.last_snow_date) + ": " + formatDate(last_date));
+        warningTextView.setText(getString(R.string.warning) + "\nAverage Nut Cycle: " + futureAverageCycle);
     }
 
     public String formatDate(String inputDate) {
